@@ -27,7 +27,8 @@ RUN git clone https://github.com/fc2blog/blog.git && \
   ) > /etc/apache2/sites-available/fc2blog && \
   a2ensite fc2blog && \
   a2dissite default && \
-  a2enmod rewrite
+  a2enmod rewrite && \
+  locale-gen ja
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
