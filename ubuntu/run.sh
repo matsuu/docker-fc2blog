@@ -1,6 +1,5 @@
 #!/bin/sh
 
-DOMAIN="${DOMAIN:-localhost}"
 DB_USER="${DB_USER:-fc2blog}"
 DB_PASSWORD="${DB_PASSWORD:-fc2blog}"
 DB_DATABASE="${DB_DATABASE:-fc2blog}"
@@ -24,7 +23,6 @@ cat "${CWD}/${DB_NAME}/Dockerfile" | sed \
   -e "s/@DB_DATABASE@/$DB_DATABASE/" \
   | docker build --tag="${DB_TAG}" -
 cat "${CWD}/${WEB_NAME}/Dockerfile" | sed \
-  -e "s/@DOMAIN@/$DOMAIN/" \
   -e "s/@DB_USER@/$DB_USER/" \
   -e "s/@DB_PASSWORD@/$DB_PASSWORD/" \
   -e "s/@DB_DATABASE@/$DB_DATABASE/" \

@@ -12,12 +12,11 @@ RUN git clone https://github.com/fc2blog/blog.git && \
     -e "s/your password/@DB_PASSWORD@/" \
     -e "s/your database name/@DB_DATABASE@/" \
     -e "s/UTF8MB4/UTF8/" \
-    -e "s/domain/@DOMAIN@/" \
+    -e "s/'domain'/\$_SERVER['HTTP_HOST']/" \
     -e "s/0123456789abcdef/@PASSWORD_SALT@/" \
     blog/public/config.php.sample > blog/public/config.php && \
   ( \
     echo "<VirtualHost *:80>" && \
-    echo "  ServerName @DOMAIN@" && \
     echo "  DocumentRoot /var/www/blog/public" && \
     echo "  <Directory /var/www/blog/public>" && \
     echo "    AllowOverride All" && \
