@@ -1,4 +1,4 @@
-ocker-fc2blog
+Docker-fc2blog
 ==============
 
 Dockerfile for fc2blog
