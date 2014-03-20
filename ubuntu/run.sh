@@ -26,6 +26,7 @@ cat "${CWD}/${WEB_NAME}/Dockerfile" | sed \
   -e "s/@DB_USER@/$DB_USER/" \
   -e "s/@DB_PASSWORD@/$DB_PASSWORD/" \
   -e "s/@DB_DATABASE@/$DB_DATABASE/" \
+  -e "s/@PASSWORD_SALT@/$PASSWORD_SALT/" \
   | docker build --tag="${WEB_TAG}" -
 docker run --name="${DB_INSTANCE_NAME}" --detach "${DB_TAG}"
 docker run --publish="${HTTP_PORT}:${WEB_INTERNAL_PORT}" --name="${WEB_INSTANCE_NAME}" --link="${DB_INSTANCE_NAME}:${DB_NAME}" --detach "${WEB_TAG}"
