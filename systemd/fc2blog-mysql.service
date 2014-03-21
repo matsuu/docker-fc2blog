@@ -1,0 +1,12 @@
+[Unit]
+Description=MySQL Service for fc2blog
+After=etcd.service
+After=docker.service
+
+[Service]
+ExecStart=/bin/bash -c '/usr/bin/docker start --attach fc2blog-mysql || /usr/bin/docker run --name=fc2blog-mysql fc2blog/mysql'
+#ExecStart=/usr/bin/docker run --name=fc2blog-mysql fc2blog/mysql
+ExecStop=/usr/bin/docker stop fc2blog-mysql
+
+[Install]
+WantedBy=local.target

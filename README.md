@@ -6,6 +6,7 @@ Dockerfile for fc2blog
 #### Requirements
 
 * Docker
+* CoreOS(optional)
 
 #### Installation (CentOS)
 
@@ -34,10 +35,18 @@ Dockerfile for fc2blog
     vi run.sh
     sh run.sh
 
+#### CoreOS + fleet
+
+    sudo systemdctl start fleet.service
+    fleetctl start systemd/fc2blog-mysql.service
+    fleetctl start systemd/fc2blog-apache.service
+    fleetctl list-units
+
 #### See also
 
 * [fc2blog/blog](https://github.com/fc2blog/blog)
 * [Docker](https://www.docker.io/)
+* [CoreOS](https://coreos.com/)
 
 #### TODO
 
@@ -46,5 +55,6 @@ Dockerfile for fc2blog
 * Support log handling
 * Execute mysql_secure_install
 * Support MySQL Master-Slave
-* Integrate with etcd+fleet for CoreOS
+* ~~Integrate with fleet on CoreOS~~
+* Integrate with etcd+fleet on CoreOS
 * Support Nginx
