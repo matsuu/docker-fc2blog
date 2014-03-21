@@ -16,6 +16,15 @@ Dockerfile for fc2blog
     vi run.sh
     sh run.sh
 
+#### Installation (Gentoo)
+
+    docker pull plabedan/gentoo-minimal
+    git clone http://github.com/matsuu/docker-fc2blog
+    cd docker-fc2blog
+    cd gentoo
+    vi run.sh
+    sh run.sh
+
 #### Installation (Ubuntu)
 
     docker pull ubuntu
@@ -33,7 +42,7 @@ Dockerfile for fc2blog
 #### TODO
 
 * Unlink /admin/install.php after installation
-* Support other distributions
+* ~~Support other distributions~~
 * Support log handling
 * Execute mysql_secure_install
 * Support MySQL Master-Slave
