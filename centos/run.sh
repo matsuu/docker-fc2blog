@@ -12,8 +12,8 @@ WEB_INTERNAL_PORT="80"
 
 CWD=`dirname $0`
 DATE=`date +%Y%m%d%H%M%S`
-DB_TAG="fc2blog/${DB_NAME}:${DATE}"
-WEB_TAG="fc2blog/${WEB_NAME}:${DATE}"
+DB_TAG="fc2blog/${DB_NAME}:latest"
+WEB_TAG="fc2blog/${WEB_NAME}:latest"
 DB_INSTANCE_NAME="${DB_NAME}-${DATE}"
 WEB_INSTANCE_NAME="${WEB_NAME}-${DATE}"
 
