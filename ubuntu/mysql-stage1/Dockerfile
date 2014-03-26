@@ -9,8 +9,3 @@ RUN /usr/bin/mysqld_safe & \
   mysqladmin create '@DB_DATABASE@' && \
   mysql --execute="GRANT ALL ON \`@DB_DATABASE@\`.* TO \`@DB_USER@\`@\`%\` IDENTIFIED BY '@DB_PASSWORD@'" && \
   sed -i -e "s/^bind-address/#&/" /etc/mysql/my.cnf
-
-WORKDIR /usr
-EXPOSE 3306
-CMD ["/usr/bin/mysqld_safe"]
-#ENTRYPOINT ["/usr/bin/mysqld_safe"]

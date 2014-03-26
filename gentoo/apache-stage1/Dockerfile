@@ -31,11 +31,3 @@ RUN git clone https://github.com/fc2blog/blog.git && \
   ) > /etc/apache2/vhosts.d/default_vhost.include && \
   echo ja_JP.UTF-8 UTF-8 >> /etc/locale.gen && \
   locale-gen
-
-ONBUILD RUN rm /var/www/blog/public/admin/install.php
-
-WORKDIR /etc/apache2
-EXPOSE 80
-CMD ["/usr/sbin/apache2", "-D", "DEFAULT_VHOST", "-D", "PHP5", "-D", "LANGUAGE", "-D", "FOREGROUND"]
-#CMD ["-D", "DEFAULT_VHOST", "-D", "PHP5", "-D", "LANGUAGE", "-D", "FOREGROUND"]
-#ENTRYPOINT ["/usr/sbin/apache2"]

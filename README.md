@@ -8,35 +8,34 @@ Dockerfile for fc2blog
 * Docker
 * CoreOS(optional)
 
-#### Installation (CentOS)
+#### Prepare
+
+    git clone http://github.com/matsuu/docker-fc2blog
+    cd docker-fc2blog
+
+#### Build (CentOS)
 
     docker pull centos
-    git clone http://github.com/matsuu/docker-fc2blog
-    cd docker-fc2blog
-    cd centos
-    vi run.sh
-    sh run.sh
+    ./build.sh
 
-#### Installation (Gentoo)
+#### Build (Gentoo)
 
     docker pull plabedan/gentoo-minimal
-    git clone http://github.com/matsuu/docker-fc2blog
-    cd docker-fc2blog
-    cd gentoo
-    vi run.sh
-    sh run.sh
+    OS=gentoo ./build.sh
 
-#### Installation (Ubuntu)
+#### Build (Ubuntu)
 
     docker pull ubuntu
-    git clone http://github.com/matsuu/docker-fc2blog
-    cd docker-fc2blog
-    cd ubuntu
-    vi run.sh
-    sh run.sh
+    OS=ubuntu ./build.sh
 
-#### CoreOS + fleet
+#### Run
 
+    docker run --name=fc2blog-mysql fc2blog/mysql
+    docker run --name=fc2blog-apache --publish=80:80 --link=fc2blog-mysql:mysql fc2blog/apache
+
+#### Run on fleet(CoreOS)
+
+    sudo systemdctl start etcd.service
     sudo systemdctl start fleet.service
     fleetctl start systemd/fc2blog-mysql.service
     fleetctl start systemd/fc2blog-apache.service
@@ -50,11 +49,11 @@ Dockerfile for fc2blog
 
 #### TODO
 
-* Unlink /admin/install.php after installation
+* ~~Unlink /admin/install.php after installation~~
 * ~~Support other distributions~~
 * Support log handling
 * Execute mysql_secure_install
 * Support MySQL Master-Slave
 * ~~Integrate with fleet on CoreOS~~
-* Integrate with etcd+fleet on CoreOS
+* ~~Integrate with etcd+fleet on CoreOS~~
 * Support Nginx

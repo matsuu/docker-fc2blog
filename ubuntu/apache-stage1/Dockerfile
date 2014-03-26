@@ -1,17 +1,17 @@
-FROM centos
+FROM ubuntu
 
-#RUN yum update -y
-RUN yum install -y mod_php php-gd php-mbstring php-mysql git
+RUN apt-get update
+#RUN apt-get upgrade
+RUN apt-get install -y libapache2-mod-php5 php5-gd php5-mysql git
 
 WORKDIR /var/www
 RUN git clone https://github.com/fc2blog/blog.git && \
-  chown apache:apache blog/app/temp blog/public/uploads && \
+  chown www-data:www-data blog/app/temp blog/public/uploads && \
   sed \
     -e "s/'localhost'/getenv('MYSQL_PORT_3306_TCP_ADDR')/" \
     -e "s/your user name/@DB_USER@/" \
     -e "s/your password/@DB_PASSWORD@/" \
     -e "s/your database name/@DB_DATABASE@/" \
-    -e "s/UTF8MB4/UTF8/" \
     -e "s/'domain'/\$_SERVER['HTTP_HOST']/" \
     -e "s/0123456789abcdef/@PASSWORD_SALT@/" \
     blog/public/config.php.sample > blog/public/config.php && \
@@ -24,12 +24,8 @@ RUN git clone https://github.com/fc2blog/blog.git && \
     echo "    Allow from all" && \
     echo "  </Directory>" && \
     echo "</VirtualHost>" \
-  ) > /etc/httpd/conf.d/fc2blog.conf
-
-ONBUILD RUN rm /var/www/blog/public/admin/install.php
-
-WORKDIR /etc/httpd
-EXPOSE 80
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-#CMD ["-D", "FOREGROUND"]
-#ENTRYPOINT ["/usr/sbin/httpd"]
+  ) > /etc/apache2/sites-available/fc2blog && \
+  a2ensite fc2blog && \
+  a2dissite default && \
+  a2enmod rewrite && \
+  locale-gen ja
