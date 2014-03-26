@@ -2,12 +2,11 @@
 Description=Apache Service for fc2blog
 After=etcd.service
 After=docker.service
-After=fc2blog-mysql.service
 
 [Service]
-ExecStart=/bin/bash -c '/usr/bin/docker start --attach fc2blog-apache || /usr/bin/docker run --name=fc2blog-apache --publish=80:80 --link=fc2blog-mysql:mysql fc2blog/apache'
-#ExecStart=/usr/bin/docker run --name=fc2blog-apache --publish=80:80 --link=fc2blog-mysql:mysql fc2blog/apache
-ExecStop=/usr/bin/docker stop fc2blog-apache
+ExecStartPre=/bin/sh -c '/usr/bin/etcdctl get /services/mysql >/dev/null || /usr/bin/etcdctl watch /services/mysql >/dev/null'
+ExecStart=/bin/sh -c '/usr/bin/docker start --attach %n || /usr/bin/docker run --name=%n --publish=80:80 --link=`/usr/bin/etcdctl get /services/mysql`:mysql fc2blog/apache'
+ExecStop=/usr/bin/docker stop --time=3 %n
 
 [Install]
 WantedBy=local.target
