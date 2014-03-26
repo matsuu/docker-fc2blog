@@ -26,6 +26,8 @@ RUN git clone https://github.com/fc2blog/blog.git && \
     echo "</VirtualHost>" \
   ) > /etc/httpd/conf.d/fc2blog.conf
 
+ONBUILD RUN rm /var/www/blog/public/admin/install.php
+
 WORKDIR /etc/httpd
 EXPOSE 80
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
